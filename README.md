@@ -1,4 +1,4 @@
-# 🚧 just another library to fuzzy search (filter) and show ranked, maybe highlighted results, wip/under construction 🏗️
+# 🚧 just another library to fuzzy search (filter) and show a ranked, maybe highlighted result, wip/under construction 🏗️
 
 ### Not yet available on npm. Let me know if you are interested in this. 🤷‍♂️
 
@@ -9,7 +9,8 @@ const searchValue = 'abc';
 const textValues = ['aa bb cc', 'abc', 'abcdef', 'xyz', 'xa xb xc', 'cba'];
 
 const rateFunc = prioritizeContinualCharactersAndWordStarts(searchValue, whitespaceWordStart);
-const filteredValues = orderedStringArrayByRate(rateFunc)(textValues);
+
+const filteredAndOrderedValues = orderedStringArrayByRate(rateFunc)(textValues);
 
 // [ 'abc',         // exact match
 //   'aa bb cc',    // each word starts with one of the searched character (a b c)
@@ -20,16 +21,20 @@ const filteredValues = orderedStringArrayByRate(rateFunc)(textValues);
 
 ### roadmap:
 
-* [x] prioritize strings where words starts with a search character, and a "word" will be configable, so that the search value `FS` will rank all this words **_above_** `fantastic`:
+* [x] prioritize when the search string matches word starts
+
+  a "word" is **_configable_**, so that the search value `FS` can rank the words **_above_**, for example, `fantastic`:
+
   * [x] fuzzy search
   * [x] fuzzy-search
   * [x] fuzzy_search
   * [x] FUZZY_SEARCH
   * [x] fuzzySearch
   * [x] FuzzySearch
+
 * [ ] setup a build script
 * [ ] linter, formatter
 * [ ] test the result with npm, yarn, in the browser and with other JS VMs like deno
-* [ ] create a low level (utils as shown above) and high level api (one liner)
-* [ ] make it available on npm...
+* [ ] cleanup the low level api (utils as shown above) and create a new high level api (one liner)
+* [ ] make it available on npm
 * [ ] small website to demo it?
