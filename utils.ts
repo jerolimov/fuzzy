@@ -1,10 +1,10 @@
-import { FilterFunc, RateFunc, ValueWithRank } from "./types";
+import { ValueWithRank, FilterFunc, RateFunc, CompareFunc } from "./types";
 
-export const containsExactString = (searchValue: string) => (textValue: string): boolean => {
+export const containsExactString = (searchValue: string): FilterFunc => (textValue: string): boolean => {
   return textValue.includes(searchValue);
 };
 
-export const containsEveryCharactersAnywhere = (searchValue: string) => (textValue: string): boolean => {
+export const containsEveryCharactersAnywhere = (searchValue: string): FilterFunc => (textValue: string): boolean => {
   for (let searchCharPos = 0; searchCharPos < searchValue.length; searchCharPos++) {
     const char = searchValue.charAt(searchCharPos);
     if (!textValue.includes(char)) {
@@ -14,7 +14,7 @@ export const containsEveryCharactersAnywhere = (searchValue: string) => (textVal
   return true;
 };
 
-export const containsEveryCharactersBehind = (searchValue: string) => (textValue: string): boolean => {
+export const containsEveryCharactersBehind = (searchValue: string): FilterFunc => (textValue: string): boolean => {
   let searchAfterPos = 0;
   for (let searchCharPos = 0; searchCharPos < searchValue.length; searchCharPos++) {
     const char = searchValue.charAt(searchCharPos);
@@ -27,7 +27,7 @@ export const containsEveryCharactersBehind = (searchValue: string) => (textValue
   return true;
 };
 
-export const countExistingCharactersAnywhere = (searchValue: string) => (textValue: string): number => {
+export const countExistingCharactersAnywhere = (searchValue: string): RateFunc => (textValue: string): number => {
   let result = 0;
   for (let searchCharPos = 0; searchCharPos < searchValue.length; searchCharPos++) {
     const char = searchValue.charAt(searchCharPos);
@@ -39,7 +39,7 @@ export const countExistingCharactersAnywhere = (searchValue: string) => (textVal
   return result;
 };
 
-export const countExistingCharactersBehind = (searchValue: string) => (textValue: string): number => {
+export const countExistingCharactersBehind = (searchValue: string): RateFunc => (textValue: string): number => {
   let result = 0;
   let searchAfterPos = 0;
   for (let searchCharPos = 0; searchCharPos < searchValue.length; searchCharPos++) {
@@ -54,7 +54,7 @@ export const countExistingCharactersBehind = (searchValue: string) => (textValue
   return result;
 };
 
-export const prioritizeContinualCharacters = (searchValue: string) => (textValue: string): number => {
+export const prioritizeContinualCharacters = (searchValue: string): RateFunc => (textValue: string): number => {
   let result = 0;
   let searchAfterPos = 0;
   let continualCount = 0;
@@ -84,6 +84,10 @@ export const filterStringArrayByRate = (rateFunc: RateFunc, minRate = 1) => (tex
   return textValues.filter((textValue) => rateFunc(textValue) >= minRate);
 }
 
+export const compareValuesWithRank: CompareFunc = (valueWithRankA: ValueWithRank, valueWithRankB: ValueWithRank) => {
+  return valueWithRankB.rank - valueWithRankA.rank;
+}
+
 export const orderedRatedStringArrayByRate = (rateFunc: RateFunc, minRate = 1) => (textValues: string[]): ValueWithRank[] => {
   const unorderedFilteredValuesWithRank = textValues.reduce<ValueWithRank[]>((prev, textValue) => {
     const rank = rateFunc(textValue);
@@ -95,11 +99,7 @@ export const orderedRatedStringArrayByRate = (rateFunc: RateFunc, minRate = 1) =
     }
     return prev;
   }, []);
-
-  const orderedFilteredValuesWithRank = unorderedFilteredValuesWithRank.sort((valueWithRankA, valueWithRankB) => {
-    return valueWithRankB.rank - valueWithRankA.rank;
-  });
-
+  const orderedFilteredValuesWithRank = unorderedFilteredValuesWithRank.sort(compareValuesWithRank);
   return orderedFilteredValuesWithRank;
 }
 
