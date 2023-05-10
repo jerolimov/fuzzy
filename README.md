@@ -19,19 +19,25 @@ const filteredAndOrderedValues = orderedStringArrayByRate(rateFunc)(textValues);
 // ]
 ```
 
+### features
+
+* [x] super tiny (just a few kb)
+* [x] no dependencies
+* [x] works in the browser and on the server
+* [x] highly customizable for your use case, for example:
+  * [x] prioritize when the search matches a word start,
+
+    so that a search `FS` can rank the words **_higher_** then e.g. `fantastic`:
+
+    * [x] fuzzy search (whitespaces)
+    * [x] fuzzy-search (kebab-case)
+    * [x] fuzzy_search (underscore)
+    * [x] FUZZY_SEARCH (underscore)
+    * [x] fuzzySearch (pascalCase)
+    * [x] FuzzySearch (CamelCase)
+    * [x] any other custom schema
+
 ### roadmap:
-
-* [x] prioritize when the search string matches word starts
-
-  a "word" is **_configable_**, so that the search value `FS` can rank the words **_higher_** then e.g. `fantastic`:
-
-  * [x] fuzzy search (whitespaces)
-  * [x] fuzzy-search (kebab-case)
-  * [x] fuzzy_search (underscore)
-  * [x] FUZZY_SEARCH (underscore)
-  * [x] fuzzySearch (pascalCase)
-  * [x] FuzzySearch (CamelCase)
-  * [x] any other custom schema
 
 * [ ] setup a build script
 * [ ] linter, formatter
