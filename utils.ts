@@ -1,4 +1,4 @@
-import { ValueWithRank, FilterFunc, RateFunc, CompareFunc } from "./types";
+import { ValueWithRank, FilterFunc, RateFunc, CompareFunc, IsWordStart } from "./types";
 
 export const containsExactString = (searchValue: string): FilterFunc => (textValue: string): boolean => {
   return textValue.includes(searchValue);
@@ -55,6 +55,9 @@ export const countExistingCharactersBehind = (searchValue: string): RateFunc => 
 };
 
 export const prioritizeContinualCharacters = (searchValue: string): RateFunc => (textValue: string): number => {
+  if (searchValue === textValue) {
+    return Number.MAX_SAFE_INTEGER;
+  }
   let result = 0;
   let searchAfterPos = 0;
   let continualCount = 0;
@@ -65,6 +68,36 @@ export const prioritizeContinualCharacters = (searchValue: string): RateFunc => 
       return 0;
     }
     if (foundAt === searchAfterPos) {
+      continualCount++;
+      result += continualCount;
+    } else {
+      continualCount = 1;
+      result += continualCount;
+    }
+    searchAfterPos = foundAt + 1;
+  }
+  return result;
+};
+
+
+
+export const prioritizeContinualCharactersAndWordStarts = (searchValue: string, isWordStart: IsWordStart): RateFunc => (textValue: string): number => {
+  if (searchValue === textValue) {
+    return Number.MAX_SAFE_INTEGER;
+  }
+  let result = 0;
+  let searchAfterPos = 0;
+  let continualCount = 0;
+  for (let pos = 0; pos < searchValue.length; pos++) {
+    const char = searchValue.charAt(pos);
+    const foundAt = textValue.indexOf(char, searchAfterPos);
+    if (foundAt === -1) {
+      return 0;
+    }
+    if (foundAt === searchAfterPos) {
+      continualCount++;
+      result += continualCount;
+    } else if (isWordStart(char, foundAt, textValue)) {
       continualCount++;
       result += continualCount;
     } else {

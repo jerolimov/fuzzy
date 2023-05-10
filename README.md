@@ -16,7 +16,7 @@ const filteredValues = orderedStringArrayByRate(rateFunc)(textValues);
 
 ### roadmap:
 
-* [ ] prioritize strings where words starts with a search character, and a "word" will be configable, so that the search value `FS` will rank all this words **_above_** `fantastic`:
+* [x] prioritize strings where words starts with a search character, and a "word" will be configable, so that the search value `FS` will rank all this words **_above_** `fantastic`:
   * fuzzy search
   * fuzzy-search
   * fuzzy_search
