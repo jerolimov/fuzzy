@@ -6,23 +6,27 @@
 
 ```ts
 const searchValue = 'abc';
-const textValues = ['a b c', 'abc', 'abcdef', 'xyz'];
+const textValues = ['aa bb cc', 'abc', 'abcdef', 'xyz', 'xa xb xc', 'cba'];
 
-const rateFunc = prioritizeContinualCharacters(searchValue);
+const rateFunc = prioritizeContinualCharactersAndWordStarts(searchValue, whitespaceWordStart);
 const filteredValues = orderedStringArrayByRate(rateFunc)(textValues);
 
-//    filteredValues: ['abc', 'abcdef', 'a b c']
+// [ 'abc',         // exact match
+//   'aa bb cc',    // each word starts with one of the searched character (a b c)
+//   'abcdef',      // contains all characters, close together
+//   'xa xb xc'     // contains also all characters, but seperated
+// ]
 ```
 
 ### roadmap:
 
 * [x] prioritize strings where words starts with a search character, and a "word" will be configable, so that the search value `FS` will rank all this words **_above_** `fantastic`:
-  * fuzzy search
-  * fuzzy-search
-  * fuzzy_search
-  * FUZZY_SEARCH
-  * fuzzySearch
-  * FuzzySearch
+  * [x] fuzzy search
+  * [x] fuzzy-search
+  * [x] fuzzy_search
+  * [x] FUZZY_SEARCH
+  * [x] fuzzySearch
+  * [x] FuzzySearch
 * [ ] setup a build script
 * [ ] linter, formatter
 * [ ] test the result with npm, yarn, in the browser and with other JS VMs like deno
