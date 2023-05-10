@@ -1,9 +1,4 @@
-
-type FilterFunc = (textValue: string) => boolean;
-
-type RateFunc = (textValue: string) => number;
-
-type ValueWithRank = { textValue: string, rank: number };
+import { FilterFunc, RateFunc, ValueWithRank } from "./types";
 
 export const containsExactString = (searchValue: string) => (textValue: string): boolean => {
   return textValue.includes(searchValue);
