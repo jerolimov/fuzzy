@@ -59,7 +59,7 @@ export const filterStringArrayByRate = (rateFunc: RateFunc, minRate = 1) => (tex
   return textValues.filter((textValue) => rateFunc(textValue) >= minRate);
 }
 
-export const compareValuesWithRank: CompareFunc = (valueWithRankA: ValueWithRank, valueWithRankB: ValueWithRank) => {
+const compareValuesWithRank: CompareFunc = (valueWithRankA: ValueWithRank, valueWithRankB: ValueWithRank) => {
   return valueWithRankB.rank - valueWithRankA.rank;
 }
 
