@@ -17,12 +17,12 @@ const filteredValues = orderedStringArrayByRate(rateFunc)(textValues);
 ### roadmap:
 
 * [ ] prioritize strings where words starts with a search character, and a "word" will be configable, so that the search value `FS` will rank all this words **_above_** `fantastic`:
-      * fuzzy search
-      * fuzzy-search
-      * fuzzy_search
-      * FUZZY_SEARCH
-      * fuzzySearch
-      * FuzzySearch
+  * fuzzy search
+  * fuzzy-search
+  * fuzzy_search
+  * FUZZY_SEARCH
+  * fuzzySearch
+  * FuzzySearch
 * [ ] setup a build script
 * [ ] linter, formatter
 * [ ] test the result with npm, yarn, in the browser and with other JS VMs like deno
