@@ -23,14 +23,15 @@ const filteredAndOrderedValues = orderedStringArrayByRate(rateFunc)(textValues);
 
 * [x] prioritize when the search string matches word starts
 
-  a "word" is **_configable_**, so that the search value `FS` can rank the words **_above_**, for example, `fantastic`:
+  a "word" is **_configable_**, so that the search value `FS` can rank the words **_higher_** then e.g. `fantastic`:
 
-  * [x] fuzzy search
-  * [x] fuzzy-search
-  * [x] fuzzy_search
-  * [x] FUZZY_SEARCH
-  * [x] fuzzySearch
-  * [x] FuzzySearch
+  * [x] fuzzy search (whitespaces)
+  * [x] fuzzy-search (kebab-case)
+  * [x] fuzzy_search (underscore)
+  * [x] FUZZY_SEARCH (underscore)
+  * [x] fuzzySearch (pascalCase)
+  * [x] FuzzySearch (CamelCase)
+  * [x] any other custom schema
 
 * [ ] setup a build script
 * [ ] linter, formatter
